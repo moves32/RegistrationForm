@@ -1,3 +1,6 @@
+first code
+
+
 import java.sql.*;
 
 public class DBConnection {
@@ -12,3 +15,67 @@ public class DBConnection {
         }
     }
 }
+
+
+
+second code
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
+
+public class RegistrationForm extends JFrame {
+    JTextField nameField, mobileField;
+    JRadioButton maleBtn, femaleBtn;
+    JComboBox<String> dayBox, monthBox, yearBox;
+    JTextArea addressArea;
+    JCheckBox termsBox;
+    JButton submitBtn, viewBtn;
+    JTextArea displayArea;
+
+    public RegistrationForm() {
+        setTitle("Registration Form");
+        setSize(700, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+
+        add(new JLabel("Name"));
+        nameField = new JTextField(20); add(nameField);
+
+        add(new JLabel("Mobile"));
+        mobileField = new JTextField(20); add(mobileField);
+
+        add(new JLabel("Gender"));
+        maleBtn = new JRadioButton("Male"); femaleBtn = new JRadioButton("Female");
+        ButtonGroup genderGroup = new ButtonGroup();
+        genderGroup.add(maleBtn); genderGroup.add(femaleBtn);
+        add(maleBtn); add(femaleBtn);
+
+        add(new JLabel("DOB"));
+        String[] days = new String[31]; for (int i = 0; i < 31; i++) days[i] = String.valueOf(i + 1);
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        String[] years = new String[100]; for (int i = 0; i < 100; i++) years[i] = String.valueOf(2025 - i);
+        dayBox = new JComboBox<>(days); monthBox = new JComboBox<>(months); yearBox = new JComboBox<>(years);
+        add(dayBox); add(monthBox); add(yearBox);
+
+        add(new JLabel("Address"));
+        addressArea = new JTextArea(4, 20); add(new JScrollPane(addressArea));
+
+        termsBox = new JCheckBox("Accept Terms and Conditions"); add(termsBox);
+
+        submitBtn = new JButton("Submit");
+        viewBtn = new JButton("View Records");
+        add(submitBtn); add(viewBtn);
+
+        displayArea = new JTextArea(10, 50);
+        add(new JScrollPane(displayArea));
+
+        submitBtn.addActionListener(e -> saveToDatabase());
+        viewBtn.addActionListener(e -> displayData());
+
+        setVisible(true);
+    }
+
+    private
